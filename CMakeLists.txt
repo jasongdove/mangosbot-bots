@@ -115,11 +115,6 @@ if (BUILD_PLAYERBOT)
   add_definitions(-DENABLE_PLAYERBOTS)
 endif()
 
-# Define ENABLE_IMMERSIVE if need
-if (BUILD_IMMERSIVE)
-  add_definitions(-DENABLE_IMMERSIVE)
-endif()
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/ahbot
@@ -186,7 +181,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/dep/include/g3dlite
     ${CMAKE_BINARY_DIR}
     ${CMAKE_BINARY_DIR}/src/shared
-    ${CMAKE_SOURCE_DIR}/src/modules/Immersive
     ${MYSQL_INCLUDE_DIR}
     ${ACE_INCLUDE_DIR}
     ${Boost_INCLUDE_DIRS}
