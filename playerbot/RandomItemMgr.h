@@ -2,6 +2,7 @@
 #define _RandomItemMgr_H
 
 #include "Common.h"
+#include "Player.h"
 #include "PlayerbotAIBase.h"
 
 using namespace std;

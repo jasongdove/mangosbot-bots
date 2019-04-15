@@ -1,4 +1,5 @@
 #pragma once
+#include "botpch.h"
 #include "Category.h"
 
 using namespace std;

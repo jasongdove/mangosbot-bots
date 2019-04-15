@@ -1,6 +1,7 @@
 #ifndef _ServerFacade_H
 #define _ServerFacade_H
 
+#include "botpch.h"
 #include "Common.h"
 #include "PlayerbotAIBase.h"
 #include "PlayerbotAIConfig.h"
@@ -120,6 +121,16 @@ class ServerFacade
 #endif
 #ifdef CMANGOS
             return unit->isFeared();
+#endif
+        }
+
+        bool IsUnderWater(Unit *unit)
+        {
+#ifdef MANGOS
+            return unit->IsUnderWater();
+#endif
+#ifdef CMANGOS
+            return unit->IsUnderwater();
 #endif
         }
 

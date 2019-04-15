@@ -20,6 +20,11 @@ public:
     bool Initialize();
     bool IsInRandomAccountList(uint32 id);
     bool IsInRandomQuestItemList(uint32 id);
+    
+    void SetConfigFileName(std::string filename)
+    {
+        config.SetSource(filename);
+    }
 
     bool enabled;
     bool allowGuildBots;

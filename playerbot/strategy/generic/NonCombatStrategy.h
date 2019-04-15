@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Strategy.h"
+
 namespace ai
 {
     class NonCombatStrategy : public Strategy

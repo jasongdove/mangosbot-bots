@@ -1,5 +1,4 @@
 #pragma once
-#include "Config.h"
 #include "PricingStrategy.h"
 #include "ItemPrototype.h"
 #include "SharedDefines.h"
@@ -82,7 +81,7 @@ namespace ahbot
             return proto->Class == ITEM_CLASS_TRADE_GOODS ||
                     proto->Class == ITEM_CLASS_MISC ||
                     proto->Class == ITEM_CLASS_REAGENT
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
                 ||
                     proto->Class == ITEM_CLASS_GEM
 #endif

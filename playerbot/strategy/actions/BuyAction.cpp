@@ -39,7 +39,7 @@ bool BuyAction::Execute(Event event)
 
             VendorItemData const* tItems = pCreature->GetVendorItems();
             result |= BuyItem(pCreature->GetVendorItems(), vendorguid, proto);
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
             result |= BuyItem(pCreature->GetVendorTemplateItems(), vendorguid, proto);
 #endif
 
@@ -70,7 +70,12 @@ bool BuyAction::BuyItem(VendorItemData const* tItems, ObjectGuid vendorguid, con
     {
         if (tItems->GetItem(slot)->item == itemId)
         {
-            bot->BuyItemFromVendor(vendorguid, itemId, 1, NULL_BAG, NULL_SLOT);
+#ifdef MANGOSBOT_TWO
+            bot->BuyItemFromVendorSlot(vendorguid, slot,
+#else
+            bot->BuyItemFromVendor(vendorguid,
+#endif
+                itemId, 1, NULL_BAG, NULL_SLOT);
             ostringstream out; out << "Buying " << ChatHelper::formatItem(proto);
             ai->TellMaster(out.str());
             return true;

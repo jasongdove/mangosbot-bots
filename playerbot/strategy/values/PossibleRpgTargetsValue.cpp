@@ -23,7 +23,7 @@ PossibleRpgTargetsValue::PossibleRpgTargetsValue(PlayerbotAI* ai, float range) :
         allowedNpcFlags.push_back(UNIT_NPC_FLAG_QUESTGIVER);
         allowedNpcFlags.push_back(UNIT_NPC_FLAG_FLIGHTMASTER);
         allowedNpcFlags.push_back(UNIT_NPC_FLAG_BANKER);
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
         allowedNpcFlags.push_back(UNIT_NPC_FLAG_GUILD_BANKER);
         allowedNpcFlags.push_back(UNIT_NPC_FLAG_TRAINER_CLASS);
         allowedNpcFlags.push_back(UNIT_NPC_FLAG_TRAINER_PROFESSION);

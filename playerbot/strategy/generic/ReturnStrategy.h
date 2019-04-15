@@ -1,3 +1,4 @@
+#include "botpch.h"
 #include "../generic/NonCombatStrategy.h"
 #pragma once
 

@@ -32,6 +32,11 @@ public:
     std::set<uint32> ignoreVendorItemIds;
     bool sendmail;
 
+    void SetConfigFileName(string filename)
+    {
+        config.SetSource(filename);
+    }
+
     float GetSellPriceMultiplier(string category)
     {
         return GetCategoryParameter(sellPriceMultipliers, "PriceMultiplier.Sell", category, 1.0f);

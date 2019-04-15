@@ -169,7 +169,7 @@ void SuggestWhatToDoAction::grindMaterials()
                 if (name == category->GetName())
                 {
                     string item = category->GetLabel();
-                    transform(item.begin(), item.end(), item.begin(), tolower);
+                    transform(item.begin(), item.end(), item.begin(), ::tolower);
                     ostringstream itemout;
                     itemout << "|c0000b000" << item << "|r";
                     item = itemout.str();
@@ -205,7 +205,7 @@ void SuggestWhatToDoAction::grindReputation()
         factions["Gadgetzan"] = 50;
         factions["Ratchet"] = 20;
 
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
         factions["Ashtongue Deathsworn"] = 70;
         factions["Cenarion Expedition"] = 62;
         factions["The Consortium"] = 65;
@@ -291,7 +291,7 @@ void SuggestWhatToDoAction::spam(string msg, uint32 channelId)
             if (ChannelMgr* cMgr = channelMgr(bot->GetTeam()))
             {
                 if (Channel* chn = cMgr->GetJoinChannel(channelName
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
                     , channel->ChannelID
 #endif
                 ))

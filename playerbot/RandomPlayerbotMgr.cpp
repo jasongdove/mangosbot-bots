@@ -359,7 +359,11 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
 			terrain->IsInWater(x, y, z))
 			continue;
 
-        float ground = map->GetHeight(x, y, z + 0.5f);
+        float ground = map->GetHeight(x, y, z + 0.5f
+#ifdef MANGOSBOT_TWO
+        , PHASEMASK_NORMAL
+#endif
+        );
         if (ground <= INVALID_HEIGHT)
             continue;
 
@@ -638,7 +642,7 @@ void RandomPlayerbotMgr::Refresh(Player* bot)
     bot->GetPlayerbotAI()->Reset();
 
     bot->DurabilityRepairAll(false, 1.0f
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
         , false
 #endif
     );

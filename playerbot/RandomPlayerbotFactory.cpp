@@ -109,6 +109,9 @@ bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls)
 	uint8 facialHair = excludeCheck ? 0 : facialHairTypes[urand(0, facialHairTypes.size() - 1)];
 
 	WorldSession* session = new WorldSession(accountId, NULL, SEC_PLAYER,
+#ifdef MANGOSBOT_TWO
+        2,
+#endif
 #ifdef MANGOSBOT_ONE
         1,
 #endif
@@ -161,8 +164,9 @@ string RandomPlayerbotFactory::CreateRandomBotName(uint8 gender)
     }
 
 	fields = result->Fetch();
+    string name = fields[0].GetString();
 	delete result;
-    return fields[0].GetString();
+    return name;
 }
 
 

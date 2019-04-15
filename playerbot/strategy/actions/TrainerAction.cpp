@@ -24,7 +24,7 @@ void TrainerAction::Learn(uint32 cost, TrainerSpell const* tSpell, ostringstream
 #endif
     );
 #endif
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     bot->learnSpell(tSpell->spell, false);
 #endif
 

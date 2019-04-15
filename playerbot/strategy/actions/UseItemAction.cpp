@@ -88,13 +88,13 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
 #ifdef MANGOSBOT_ZERO
     uint16 targetFlag = TARGET_FLAG_SELF;
 #endif
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     uint32 targetFlag = TARGET_FLAG_SELF;
 #endif
 
     WorldPacket packet(CMSG_USE_ITEM);
     packet << bagIndex << slot << spell_index;
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     packet << cast_count << item_guid;
 #endif
 

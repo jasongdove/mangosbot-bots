@@ -12,5 +12,11 @@
 #include "GuildMgr.h"
 #include "ObjectMgr.h"
 #include "ScriptMgr.h"
+#include "DBCEnums.h"
+#include "DBCStructure.h"
+#include "Unit.h"
+#include "GameObject.h"
+#include "Player.h"
+#include "Creature.h"
 
 #include "playerbot.h"

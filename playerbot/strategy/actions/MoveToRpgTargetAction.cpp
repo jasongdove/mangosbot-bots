@@ -37,7 +37,8 @@ bool MoveToRpgTargetAction::Execute(Event event)
         ai->InterruptSpell();
     }
 
-    bool generatePath = !bot->IsFlying() && !bot->IsUnderWater();
+    bool generatePath = !bot->IsFlying() && !sServerFacade.IsUnderWater(bot);
+
     MotionMaster &mm = *bot->GetMotionMaster();
 #ifdef CMANGOS
     mm.Clear();

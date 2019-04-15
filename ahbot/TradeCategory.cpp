@@ -1,3 +1,4 @@
+#include "botpch.h"
 #include "TradeCategory.h"
 #include "Category.h"
 #include "AhBotConfig.h"
@@ -76,7 +77,7 @@ bool TradeSkill::ContainsInternal(ItemPrototype const* proto)
             (recipe->SubClass == ITEM_SUBCLASS_ALCHEMY_RECIPE && skill == SKILL_ALCHEMY) ||
             (recipe->SubClass == ITEM_SUBCLASS_FIRST_AID_MANUAL && skill == SKILL_FIRST_AID) ||
             (recipe->SubClass == ITEM_SUBCLASS_ENCHANTING_FORMULA && skill == SKILL_ENCHANTING) ||
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
             (recipe->SubClass == ITEM_SUBCLASS_JEWELCRAFTING_RECIPE && skill == SKILL_JEWELCRAFTING) ||
 #endif
             (recipe->SubClass == ITEM_SUBCLASS_FISHING_MANUAL && skill == SKILL_FISHING)
@@ -189,9 +190,9 @@ string TradeSkill::GetName()
         name = "trade.herbalism"; break;
     case SKILL_FIRST_AID:
         name = "trade.firstaid"; break;
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     case SKILL_JEWELCRAFTING:
-        name = "trade.jewelcrafting" break;;
+        name = "trade.jewelcrafting"; break;
 #endif
     }
 
@@ -226,7 +227,7 @@ string TradeSkill::GetLabel()
             return "ore and stone";
         case SKILL_FIRST_AID:
             return "first aid reagents";
-    #ifdef MANGOSBOT_ONE
+    #if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
         case SKILL_JEWELCRAFTING:
             return "jewelcrafting";
     #endif
@@ -258,7 +259,7 @@ string TradeSkill::GetLabel()
             return "ore and stone";
         case SKILL_FIRST_AID:
             return "bandages";
-    #ifdef MANGOSBOT_ONE
+    #if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
         case SKILL_JEWELCRAFTING:
             return "jewels";
     #endif

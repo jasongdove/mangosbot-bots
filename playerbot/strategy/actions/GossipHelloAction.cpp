@@ -122,7 +122,7 @@ bool GossipHelloAction::ProcessGossip(int menuToSelect)
 #ifdef MANGOSBOT_ZERO
     p << menuToSelect;
 #endif
-#ifdef MANGOSBOT_ONE
+#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     p << menu.GetMenuId() << menuToSelect;
 #endif
     p << code;
