@@ -245,7 +245,7 @@ void PlayerbotFactory::InitPet()
             uint32 guid = map->GenerateLocalLowGuid(HIGHGUID_PET);
             CreatureCreatePos pos(map, bot->GetPositionX(), bot->GetPositionY(), bot->GetPositionZ(), bot->GetOrientation()
 #ifdef MANGOSBOT_TWO
-            , bot->GetPhaseMask()
+                , bot->GetPhaseMask()
 #endif
             );
             uint32 pet_number = sObjectMgr.GeneratePetNumber();
