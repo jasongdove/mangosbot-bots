@@ -358,7 +358,8 @@ string RandomPlayerbotFactory::CreateRandomGuildName()
     }
 
     fields = result->Fetch();
-	delete result;
-    return fields[0].GetString();
+    string name = fields[0].GetString();
+    delete result;
+    return name;
 }
 
