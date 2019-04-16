@@ -57,12 +57,12 @@ bool UseItemAction::UseGameObject(ObjectGuid guid)
 
 bool UseItemAction::UseItemAuto(Item* item)
 {
-    return UseItem(item, ObjectGuid(), NULL);
+    return UseItem(item, ObjectGuid(), nullptr);
 }
 
 bool UseItemAction::UseItemOnGameObject(Item* item, ObjectGuid go)
 {
-    return UseItem(item, go, NULL);
+    return UseItem(item, go, nullptr);
 }
 
 bool UseItemAction::UseItemOnItem(Item* item, Item* itemTarget)
@@ -82,7 +82,11 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
     uint8 slot = item->GetSlot();
     uint8 spell_index = 0;
     uint8 cast_count = 1;
+#ifdef MANGOSBOT_TWO
+    ObjectGuid item_guid = item->GetObjectGuid();
+#else
     uint64 item_guid = item->GetObjectGuid().GetRawValue();
+#endif
     uint32 glyphIndex = 0;
     uint8 unk_flags = 0;
 #ifdef MANGOSBOT_ZERO
@@ -93,9 +97,24 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
 #endif
 
     WorldPacket packet(CMSG_USE_ITEM);
+#ifdef MANGOSBOT_ZERO
     packet << bagIndex << slot << spell_index;
-#if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
-    packet << cast_count << item_guid;
+#endif
+#ifdef MANGOSBOT_ONE
+    packet << bagIndex << slot << spell_index << cast_count << item_guid;
+#endif
+#ifdef MANGOSBOT_TWO
+    uint32 spellId = 0;
+    for (uint8 i = 0; i < MAX_ITEM_PROTO_SPELLS; ++i)
+    {
+        if (item->GetProto()->Spells[i].SpellId > 0)
+        {
+            spellId = item->GetProto()->Spells[i].SpellId;
+            break;
+        }
+    }
+
+    packet << bagIndex << slot << cast_count << spellId << item_guid << glyphIndex << unk_flags;
 #endif
 
     bool targetSelected = false;
