@@ -38,8 +38,15 @@ set<string> PlayerbotAI::unsecuredCommands;
 uint32 PlayerbotChatHandler::extractQuestId(string str)
 {
     char* source = (char*)str.c_str();
-    char* cId = ExtractKeyFromLink(&source,"Hquest");
-    return cId ? atol(cId) : 0;
+    char* trimmed = strchr(source, '|');
+    if (trimmed != nullptr)
+    {
+        uint32 entry;
+        if (ExtractUint32KeyFromLink(&trimmed, "Hquest", entry))
+            return entry;
+    }
+
+    return 0;
 }
 
 void PacketHandlingHelper::AddHandler(uint16 opcode, string handler)
