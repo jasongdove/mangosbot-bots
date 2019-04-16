@@ -84,6 +84,7 @@ namespace ai
             creators["wts"] = &ChatTriggerContext::wts;
             creators["hire"] = &ChatTriggerContext::hire;
             creators["craft"] = &ChatTriggerContext::craft;
+            creators["learn taxi"] = &ChatTriggerContext::learn_taxi;
         }
 
     private:
@@ -160,5 +161,6 @@ namespace ai
         static Trigger* reset_ai(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "reset ai"); }
         static Trigger* spell(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "spell"); }
         static Trigger* ready_check(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "ready check"); }
+        static Trigger* learn_taxi(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "learn taxi"); }
     };
 };

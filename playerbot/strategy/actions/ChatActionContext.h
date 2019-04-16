@@ -60,6 +60,7 @@
 #include "HireAction.h"
 #include "SetCraftAction.h"
 #include "WtsAction.h"
+#include "LearnTaxiAction.h"
 
 namespace ai
 {
@@ -136,6 +137,7 @@ namespace ai
             creators["wts"] = &ChatActionContext::wts;
             creators["hire"] = &ChatActionContext::hire;
             creators["craft"] = &ChatActionContext::craft;
+            creators["learn taxi"] = &ChatActionContext::learn_taxi;
         }
 
     private:
@@ -209,6 +211,7 @@ namespace ai
         static Action* add_all_loot(PlayerbotAI* ai) { return new AddAllLootAction(ai); }
         static Action* reset_ai(PlayerbotAI* ai) { return new ResetAiAction(ai); }
         static Action* gossip_hello(PlayerbotAI* ai) { return new GossipHelloAction(ai); }
+        static Action* learn_taxi(PlayerbotAI* ai) { return new LearnTaxiAction(ai); }
     };
 
 
