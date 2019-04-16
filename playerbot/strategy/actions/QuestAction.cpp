@@ -40,12 +40,6 @@ bool QuestAction::ProcessQuests(WorldObject* questGiver)
 {
     ObjectGuid guid = questGiver->GetObjectGuid();
 
-    if (bot->GetDistance(questGiver) > INTERACTION_DISTANCE)
-    {
-        ai->TellMaster("Cannot talk to quest giver");
-        return false;
-    }
-
     if (!sServerFacade.IsInFront(bot, questGiver, sPlayerbotAIConfig.sightDistance, CAST_ANGLE_IN_FRONT))
         sServerFacade.SetFacingTo(bot, questGiver);
 
@@ -88,11 +82,9 @@ bool QuestAction::AcceptQuest(Quest const* quest, uint64 questGiver)
 
     else
     {
-        WorldPacket p(CMSG_QUESTGIVER_ACCEPT_QUEST);
-        uint32 unk1 = 0;
-        p << questGiver << questId << unk1;
-        p.rpos(0);
-        bot->GetSession()->HandleQuestgiverAcceptQuestOpcode(p);
+        WorldObject* qg = bot->GetMap()->GetWorldObject(ObjectGuid(questGiver));
+        if (qg != nullptr)
+            bot->AddQuest(quest, qg);
 
         if (bot->GetQuestStatus(questId) != QUEST_STATUS_NONE && bot->GetQuestStatus(questId) != QUEST_STATUS_AVAILABLE)
         {
