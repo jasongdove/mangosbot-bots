@@ -54,7 +54,7 @@ LootObject::LootObject(Player* bot, ObjectGuid guid)
 
 void LootObject::Refresh(Player* bot, ObjectGuid guid)
 {
-    isUnskilledLockType = false;
+    isQuestGO = false;
     skillId = SKILL_NONE;
     reqSkillValue = 0;
     reqItem = 0;
@@ -114,9 +114,24 @@ void LootObject::Refresh(Player* bot, ObjectGuid guid)
                     case LOCKTYPE_SLOW_OPEN:
                     case LOCKTYPE_SLOW_CLOSE:
                     case LOCKTYPE_OPEN_FROM_VEHICLE:
-                        isUnskilledLockType = true;
-                        this->guid = guid;
-                        return;
+                    {
+                        GameObjectInfo const* gInfo = go->GetGOInfo();
+                        for (int i = 0; i < 6; ++i)
+                        {
+                            // check whether the gameobject contains quest items
+                            if (gInfo->questItems[i] != 0)
+                            {
+                                if (IsNeededForQuest(bot, gInfo->questItems[i]))
+                                {
+                                    isQuestGO = true;
+                                    this->guid = guid;
+                                    return;
+                                }
+                            }
+                        }
+
+                        break;
+                    }
                     default:
                         if (SkillByLockType(LockType(lockInfo->Index[i])) > 0)
                         {
@@ -133,6 +148,37 @@ void LootObject::Refresh(Player* bot, ObjectGuid guid)
             }
         }
     }
+}
+
+bool LootObject::IsNeededForQuest(Player* bot, uint32 itemId)
+{
+    for (int qs = 0; qs < MAX_QUEST_LOG_SIZE; ++qs)
+    {
+        uint32 questId = bot->GetQuestSlotQuestId(qs);
+        if (questId == 0)
+            continue;
+
+        QuestStatusData& qData = bot->getQuestStatusMap()[questId];
+        if (qData.m_status != QUEST_STATUS_INCOMPLETE)
+            continue;
+        
+        Quest const* qInfo = sObjectMgr.GetQuestTemplate(questId);
+        if (!qInfo)
+            continue;
+        
+        for (int i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; ++i)
+        {
+            if (!qInfo->ReqItemCount[i] || (qInfo->ReqItemCount[i] - qData.m_itemcount[i]) <= 0)
+                continue;
+            
+            if (qInfo->ReqItemId[i] != itemId)
+                continue;
+            
+            return true;
+        }
+    }
+
+    return false;
 }
 
 WorldObject* LootObject::GetWorldObject(Player* bot)

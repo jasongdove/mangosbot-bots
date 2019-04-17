@@ -27,10 +27,13 @@ namespace ai
         WorldObject* GetWorldObject(Player* bot);
         ObjectGuid guid;
 
-        bool isUnskilledLockType;
+        bool isQuestGO;
         uint32 skillId;
         uint32 reqSkillValue;
         uint32 reqItem;
+
+    private:
+        bool IsNeededForQuest(Player* bot, uint32 itemId);
     };
 
     class LootTarget

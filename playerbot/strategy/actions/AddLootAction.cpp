@@ -65,7 +65,7 @@ bool AddGatheringLootAction::AddLoot(ObjectGuid guid)
     if (!sServerFacade.IsWithinLOSInMap(bot, wo))
         return false;
 
-    if (loot.skillId == SKILL_NONE && !loot.isUnskilledLockType)
+    if (loot.skillId == SKILL_NONE && !loot.isQuestGO)
         return false;
 
     if (!loot.IsLootPossible(bot))
