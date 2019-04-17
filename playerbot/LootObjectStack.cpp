@@ -54,6 +54,7 @@ LootObject::LootObject(Player* bot, ObjectGuid guid)
 
 void LootObject::Refresh(Player* bot, ObjectGuid guid)
 {
+    isUnskilledLockType = false;
     skillId = SKILL_NONE;
     reqSkillValue = 0;
     reqItem = 0;
@@ -102,11 +103,28 @@ void LootObject::Refresh(Player* bot, ObjectGuid guid)
                 }
                 break;
             case LOCK_KEY_SKILL:
-                if (SkillByLockType(LockType(lockInfo->Index[i])) > 0)
+                switch (LockType(lockInfo->Index[i]))
                 {
-                    skillId = SkillByLockType(LockType(lockInfo->Index[i]));
-                    reqSkillValue = max((uint32)2, lockInfo->Skill[i]);
-                    this->guid = guid;
+                    case LOCKTYPE_OPEN:
+                    case LOCKTYPE_CLOSE:
+                    case LOCKTYPE_QUICK_OPEN:
+                    case LOCKTYPE_QUICK_CLOSE:
+                    case LOCKTYPE_OPEN_TINKERING:
+                    case LOCKTYPE_OPEN_KNEELING:
+                    case LOCKTYPE_SLOW_OPEN:
+                    case LOCKTYPE_SLOW_CLOSE:
+                    case LOCKTYPE_OPEN_FROM_VEHICLE:
+                        isUnskilledLockType = true;
+                        this->guid = guid;
+                        return;
+                    default:
+                        if (SkillByLockType(LockType(lockInfo->Index[i])) > 0)
+                        {
+                            skillId = SkillByLockType(LockType(lockInfo->Index[i]));
+                            reqSkillValue = max((uint32)2, lockInfo->Skill[i]);
+                            this->guid = guid;
+                        }
+                        break;
                 }
                 break;
             case LOCK_KEY_NONE:

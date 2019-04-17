@@ -27,6 +27,7 @@ namespace ai
         WorldObject* GetWorldObject(Player* bot);
         ObjectGuid guid;
 
+        bool isUnskilledLockType;
         uint32 skillId;
         uint32 reqSkillValue;
         uint32 reqItem;
