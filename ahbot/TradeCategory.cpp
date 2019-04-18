@@ -80,6 +80,9 @@ bool TradeSkill::ContainsInternal(ItemPrototype const* proto)
 #if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
             (recipe->SubClass == ITEM_SUBCLASS_JEWELCRAFTING_RECIPE && skill == SKILL_JEWELCRAFTING) ||
 #endif
+#ifdef MANGOSBOT_TWO
+            (recipe->SubClass == ITEM_SUBCLASS_BOOK && skill == SKILL_INSCRIPTION) ||
+#endif
             (recipe->SubClass == ITEM_SUBCLASS_FISHING_MANUAL && skill == SKILL_FISHING)
             ))
         {
@@ -193,6 +196,10 @@ string TradeSkill::GetName()
 #if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     case SKILL_JEWELCRAFTING:
         name = "trade.jewelcrafting"; break;
+#endif
+#ifdef MANGOSBOT_TWO
+    case SKILL_INSCRIPTION:
+        name = "trade.inscription"; break;
 #endif
     }
 

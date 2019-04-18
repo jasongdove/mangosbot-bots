@@ -34,6 +34,7 @@ CategoryList::CategoryList()
     Add(new Reagent());
     Add(new ahbot::Quest());
     Add(new DevicesAndParts());
+    Add(new Glyph());
 
     Add(new TradeSkill(SKILL_TAILORING, true));
     Add(new TradeSkill(SKILL_LEATHERWORKING, true));
@@ -62,6 +63,11 @@ CategoryList::CategoryList()
 #if defined(MANGOSBOT_ONE) || defined(MANGOSBOT_TWO)
     Add(new TradeSkill(SKILL_JEWELCRAFTING, true));
     Add(new TradeSkill(SKILL_JEWELCRAFTING, false));
+#endif
+
+#ifdef MANGOSBOT_TWO
+    Add(new TradeSkill(SKILL_INSCRIPTION, true));
+    Add(new TradeSkill(SKILL_INSCRIPTION, false));
 #endif
 }
 

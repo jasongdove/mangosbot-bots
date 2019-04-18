@@ -51,6 +51,31 @@ namespace ahbot
         }
     };
 
+    class Glyph : public Category
+    {
+    public:
+        Glyph() : Category() {}
+
+    public:
+        virtual bool Contains(ItemPrototype const* proto)
+        {
+            return proto->Class == ITEM_CLASS_GLYPH;
+        }
+
+        virtual string GetName() { return "glyph"; }
+        virtual string GetLabel() { return "glyphs"; }
+
+        virtual uint32 GetMaxAllowedItemAuctionCount(ItemPrototype const* proto)
+        {
+            return 1;
+        }
+
+        virtual uint32 GetStackCount(ItemPrototype const* proto)
+        {
+            return 1;
+        }
+    };
+
     class Quest : public Category
     {
     public:
@@ -168,7 +193,7 @@ namespace ahbot
         }
 
         virtual string GetName() { return "quiver"; }
-        virtual string GetLabel() { return "quivers and ammo poaches"; }
+        virtual string GetLabel() { return "quivers and ammo pouches"; }
 
         virtual uint32 GetMaxAllowedItemAuctionCount(ItemPrototype const* proto)
         {
@@ -262,12 +287,11 @@ namespace ahbot
     public:
         virtual bool Contains(ItemPrototype const* proto);
         virtual uint32 GetMaxAllowedAuctionCount();
-        virtual string GetName() { return category->GetName(); }
+        virtual string GetName() { return GetDisplayName(); }
         virtual string GetDisplayName() { return combinedName; }
         virtual string GetLabel() { return category->GetLabel(); }
         virtual uint32 GetMaxAllowedItemAuctionCount(ItemPrototype const* proto);
         virtual uint32 GetStackCount(ItemPrototype const* proto) { return category->GetStackCount(proto); }
-        virtual PricingStrategy* GetPricingStrategy() { return category->GetPricingStrategy(); }
         virtual uint32 GetSkillId() { return category->GetSkillId(); }
 
     private:
