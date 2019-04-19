@@ -84,7 +84,17 @@ bool QuestAction::AcceptQuest(Quest const* quest, uint64 questGiver)
     {
         WorldObject* qg = bot->GetMap()->GetWorldObject(ObjectGuid(questGiver));
         if (qg != nullptr)
+        {
             bot->AddQuest(quest, qg);
+
+            if (bot->CanCompleteQuest(questId))
+                bot->CompleteQuest(questId);
+
+            bot->GetAchievementMgr().StartTimedAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_COMPLETE_QUEST, questId);
+
+            if (quest->GetSrcSpell() > 0)
+                bot->CastSpell(bot, quest->GetSrcSpell(), TRIGGERED_OLD_TRIGGERED);
+        }
 
         if (bot->GetQuestStatus(questId) != QUEST_STATUS_NONE && bot->GetQuestStatus(questId) != QUEST_STATUS_AVAILABLE)
         {
